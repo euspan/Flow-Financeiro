@@ -63,13 +63,6 @@ const ETAPAS = [
   }
 ];
 
-// Conquistas
-const CONQUISTAS = [
-  { id: "iniciante", nome: "Primeiros Passos", icone: "🌱", desc: "Complete todas as lições do nível Iniciante", etapa: 1 },
-  { id: "intermediario", nome: "Crescendo", icone: "📘", desc: "Complete todas as lições do nível Intermediário", etapa: 2 },
-  { id: "avancado", nome: "Mestre Financeiro", icone: "🔬", desc: "Complete todas as lições do nível Avançado", etapa: 3 },
-];
-
 export default function Home() {
   const { usuario } = useAuth();
   const navigate = useNavigate();
@@ -108,43 +101,6 @@ export default function Home() {
           </div>
           <p style={s.xpLabel}>{xpAtual}/{proximoNivel} XP para o próximo nível</p>
         </div>
-      </div>
-
-      {/* Conquistas */}
-      <p style={s.secao}>MINHAS CONQUISTAS</p>
-      <div style={s.conquistasWrap}>
-        {CONQUISTAS.map(conquista => {
-          const desbloqueada = etapaConcluida(conquista.etapa);
-          return (
-            <div key={conquista.id} style={{
-              ...s.conquistaCard,
-              background: desbloqueada ? conquista.id === 'iniciante' ? '#dcfce7' : conquista.id === 'intermediario' ? '#fef3c7' : '#ede9fe' : '#f3f4f6',
-              borderColor: desbloqueada ? conquista.id === 'iniciante' ? '#16a34a' : conquista.id === 'intermediario' ? '#b45309' : '#7c3aed' : '#d1d5db',
-            }}>
-              <div style={{
-                ...s.conquistaIcone,
-                filter: desbloqueada ? 'none' : 'grayscale(1)',
-                opacity: desbloqueada ? 1 : 0.3,
-              }}>
-                {conquista.icone}
-              </div>
-              <div>
-                <p style={{
-                  ...s.conquistaNome,
-                  color: desbloqueada ? '#1f2937' : '#9ca3af',
-                }}>
-                  {desbloqueada ? conquista.nome : '???'}
-                </p>
-                <p style={{
-                  ...s.conquistaDesc,
-                  color: desbloqueada ? '#6b7280' : '#d1d5db',
-                }}>
-                  {desbloqueada ? conquista.desc : 'Complete a etapa anterior'}
-                </p>
-              </div>
-            </div>
-          );
-        })}
       </div>
 
       {/* Trilha de aprendizado */}
@@ -222,12 +178,6 @@ const s = {
   xpBarFill: { height: '100%', background: '#facc15', borderRadius: 10, transition: 'width .6s' },
   xpLabel: { fontSize: 11, opacity: 0.75, margin: '4px 0 0' },
   secao: { fontSize: 12, fontWeight: 800, letterSpacing: 1, color: '#6b7280', marginBottom: 14, textTransform: 'uppercase' },
-  
-  conquistasWrap: { display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 },
-  conquistaCard: { display: 'flex', alignItems: 'center', gap: 12, padding: 12, borderRadius: 12, border: '2px solid' },
-  conquistaIcone: { fontSize: 32, width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  conquistaNome: { fontSize: 13, fontWeight: 800, margin: 0 },
-  conquistaDesc: { fontSize: 11, margin: 0, marginTop: 2 },
   
   etapaWrap: { marginBottom: 24 },
   etapaHeader: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 14, borderRadius: 12, border: '2px solid', marginBottom: 10 },
